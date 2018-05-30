@@ -75,7 +75,7 @@ conn net-net
     rightsubnet=$subnet_other
     right=$ip_other
     rightcert=$cert_other
-    auto=route
+    auto=start
 __EOF__
 
 cat > $swanctl_conf <<__EOF__ || die could not issue swanctl_conf=$swanctl_conf
