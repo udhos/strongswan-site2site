@@ -40,6 +40,12 @@ cert_other=$etc/swanctl/x509/${label_other}Cert.pem
 [ -r $ca_cert ] || die missing ca_cert=$ca_cert
 [ -r $ca_key ] || die missing ca_key=$ca_key
 
+msg will issue key=$key
+msg will issue req=$req
+msg will issue cert=$cert
+msg will issue ipsec_conf=$ipsec_conf
+msg will issue swanctl_conf=$swanctl_conf
+
 [ -f $key ] && die refusing to overwrite key=$key
 [ -f $req ] && die refusing to overwrite req=$req
 [ -f $cert ] && die refusing to overwrite cert=$cert
