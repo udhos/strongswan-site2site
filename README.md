@@ -14,7 +14,7 @@ Recipe for Linux:
 
     sudo sysctl -w net.ipv4.ip_forward=1
     sudo sed -i -e 's/^net.ipv4.ip_forward.*//g' /etc/sysctl.conf
-    sudo echo net.ipv4.ip_forward=1 >> /etc/sysctl.conf
+    sudo su -c "echo net.ipv4.ip_forward=1 >> /etc/sysctl.conf"
     sudo sysctl -p 
 
 Install StrongSWAN
