@@ -53,7 +53,7 @@ Generate a certificate for each gateway
 Example for aws gateway:
 
     # aws gateway:
-    sudo ./generate-conf.sh vpngw-aws         vpngw-openstacktb aws         openstacktb 10.73.0.0/26   10.155.19.0/24 10.75.32.17
+    sudo ./generate-conf.sh vpngw-aws         vpngw-openstacktb aws         openstacktb 10.73.0.0/26   10.155.19.0/24 10.75.32.7
 
 Example for openstack gateway:
 
