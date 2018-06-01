@@ -34,7 +34,7 @@ Create the CA certificate only once
 
 Run:
 
-    ./generate-ca.sh
+    sudo ./generate-ca.sh
 
 Copy the CA certificate to both gateways
 ========================================
@@ -53,12 +53,12 @@ Generate a certificate for each gateway
 Example for aws gateway:
 
     # aws gateway:
-    ./generate-conf.sh vpngw-aws         vpngw-openstacktb aws         openstacktb 10.73.0.0/26   10.155.19.0/24 10.75.32.17
+    sudo ./generate-conf.sh vpngw-aws         vpngw-openstacktb aws         openstacktb 10.73.0.0/26   10.155.19.0/24 10.75.32.17
 
 Example for openstack gateway:
 
     # openstack gateway:
-    ./generate-conf.sh vpngw-openstacktb vpngw-aws         openstacktb aws         10.155.19.0/24 10.73.0.0/26   10.73.31.107
+    sudo ./generate-conf.sh vpngw-openstacktb vpngw-aws         openstacktb aws         10.155.19.0/24 10.73.0.0/26   10.73.31.107
 
 Copy each gateway certificate to the other gateway
 ==================================================
@@ -75,13 +75,12 @@ Bring up the tunnel on both gateways.
 
 Example:
 
-    /usr/local/strongswan/sbin/ipsec start
-    /usr/local/strongswan/sbin/swanctl --load-all
+    sudo /usr/local/strongswan/sbin/ipsec start
 
 Check status:
 
-    /usr/local/strongswan/sbin/ipsec status
-    /usr/local/strongswan/sbin/swanctl --stats
+    sudo /usr/local/strongswan/sbin/ipsec status
+    sudo /usr/local/strongswan/sbin/swanctl --stats
 
 Install as service
 ==================
@@ -89,9 +88,9 @@ Install as service
 Example:
 
     sudo cp strongswan-5.6.3/init/systemd/strongswan.service /lib/systemd/system
-    systemctl enable strongswan
-    systemctl start strongswan
-    systemctl status strongswan
+    sudo systemctl enable strongswan
+    sudo systemctl start strongswan
+    sudo systemctl status strongswan
 
 -x-
 
