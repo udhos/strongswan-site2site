@@ -1,5 +1,18 @@
 # strongswan-site2site
 
+- Disable antispoofing on instances:
+
+Disable Source/Destination check on AWS instance.
+
+Disable antispoofing on OpenStack instance by adding address pairs to instance network port.
+
+- Enable IP forwarding on instances:
+
+    sudo sysctl -w net.ipv4.ip_forward=1
+    sudo sed -i -e 's/^net.ipv4.ip_forward.*//g' /etc/sysctl.conf
+    sudo echo net.ipv4.ip_forward=1 >> /etc/sysctl.conf
+    sudo sysctl -p 
+
 - Install StrongSWAN:
 
     wget https://download.strongswan.org/strongswan-5.6.3.tar.bz2
