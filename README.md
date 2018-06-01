@@ -36,8 +36,12 @@ The CA key is needed only to create the gateway certificate in the next step.
 
 - Generate a certificate for each gateway:
 
+Example for aws gateway:
+
     # aws gateway:
     ./generate-conf.sh vpngw-aws         vpngw-openstacktb aws         openstacktb 10.73.0.0/26   10.155.19.0/24 10.75.32.17
+
+Example for openstack gateway:
 
     # openstack gateway:
     ./generate-conf.sh vpngw-openstacktb vpngw-aws         openstacktb aws         10.155.19.0/24 10.73.0.0/26   10.73.31.107
