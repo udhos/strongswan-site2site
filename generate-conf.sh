@@ -16,7 +16,7 @@ die() {
 if [ $# -ne 7 ]; then
 	cat >&2 <<__EOF__
 usage:   $0 host              host_other        label       label_other subnet         subnet_other   ip_other
-example: $0 vpngw-aws         vpngw-openstacktb aws         openstacktb 10.73.0.0/26   10.155.19.0/24 10.75.32.17
+example: $0 vpngw-aws         vpngw-openstacktb aws         openstacktb 10.73.0.0/26   10.155.19.0/24 10.75.32.7
          $0 vpngw-openstacktb vpngw-aws         openstacktb aws         10.155.19.0/24 10.73.0.0/26   10.73.31.107
 __EOF__
 	exit 2
