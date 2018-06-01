@@ -1,19 +1,26 @@
 # strongswan-site2site
 
-- Disable antispoofing on instances:
+Disable antispoofing on instances
+=================================
 
-Disable Source/Destination check on AWS instance.
+- Disable Source/Destination check on AWS instance.
 
-Disable antispoofing on OpenStack instance by adding address pairs to instance network port.
+- Disable antispoofing on OpenStack instance by adding address pairs to instance network port.
 
-- Enable IP forwarding on instances:
+Enable IP forwarding on instances
+=================================
+
+Recipe for Linux:
 
     sudo sysctl -w net.ipv4.ip_forward=1
     sudo sed -i -e 's/^net.ipv4.ip_forward.*//g' /etc/sysctl.conf
     sudo echo net.ipv4.ip_forward=1 >> /etc/sysctl.conf
     sudo sysctl -p 
 
-- Install StrongSWAN:
+Install StrongSWAN
+==================
+
+Recipe:
 
     wget https://download.strongswan.org/strongswan-5.6.3.tar.bz2
     tar xf strongswan-5.6.3.tar.bz2
@@ -22,11 +29,17 @@ Disable antispoofing on OpenStack instance by adding address pairs to instance n
     make
     sudo make install
 
-- Create the CA certificate only once:
+Create the CA certificate only once
+===================================
+
+Run:
 
     ./generate-ca.sh
 
-- Copy the CA certificate to both gateways:
+Copy the CA certificate to both gateways
+========================================
+
+Copy these files:
 
     /usr/local/strongswan/etc/swanctl/private/strongswanKey.pem
     /usr/local/strongswan/etc/swanctl/x509ca/strongswanCert.pem
@@ -34,7 +47,8 @@ Disable antispoofing on OpenStack instance by adding address pairs to instance n
 The CA certificate is actually required on both gateways.
 The CA key is needed only to create the gateway certificate in the next step.
 
-- Generate a certificate for each gateway:
+Generate a certificate for each gateway
+=======================================
 
 Example for aws gateway:
 
@@ -46,26 +60,38 @@ Example for openstack gateway:
     # openstack gateway:
     ./generate-conf.sh vpngw-openstacktb vpngw-aws         openstacktb aws         10.155.19.0/24 10.73.0.0/26   10.73.31.107
 
-- Copy each gateway certificate to the other gateway:
+Copy each gateway certificate to the other gateway
+==================================================
 
 Each gateway should have these two certificates:
 
     /usr/local/strongswan/etc/swanctl/x509/awsCert.pem
     /usr/local/strongswan/etc/swanctl/x509/openstacktbCert.pem
 
-- Start the tunnel:
+Start the tunnel
+================
+
+Bring up the tunnel on both gateways.
+
+Example:
 
     /usr/local/strongswan/sbin/ipsec start
     /usr/local/strongswan/sbin/swanctl --load-all
 
+Check status:
+
     /usr/local/strongswan/sbin/ipsec status
     /usr/local/strongswan/sbin/swanctl --stats
 
-- Install as service:
+Install as service
+==================
+
+Example:
 
     sudo cp strongswan-5.6.3/init/systemd/strongswan.service /lib/systemd/system
     systemctl enable strongswan
     systemctl start strongswan
+    systemctl status strongswan
 
 -x-
 
