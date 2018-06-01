@@ -13,3 +13,4 @@ ca_key=$private/strongswanKey.pem
 ca_cert=$etc/swanctl/x509ca/strongswanCert.pem
 ipsec_conf=$etc/ipsec.conf
 swanctl_conf=$etc/swanctl/swanctl.conf
+strongswan_conf=$etc/strongswan.conf

@@ -45,12 +45,14 @@ msg will issue req=$req
 msg will issue cert=$cert
 msg will issue ipsec_conf=$ipsec_conf
 msg will issue swanctl_conf=$swanctl_conf
+msg will issue strongswan_conf=$strongswan_conf
 
 [ -f $key ] && die refusing to overwrite key=$key
 [ -f $req ] && die refusing to overwrite req=$req
 [ -f $cert ] && die refusing to overwrite cert=$cert
 [ -f $ipsec_conf ] && die refusing to overwrite ipsec_conf=$ipsec_conf
 [ -f $swanctl_conf ] && die refusing to overwrite swanctl_conf=$swanctl_conf
+[ -f $strongswan_conf ] && die refusing to overwrite strongswan_conf=$strongswan_conf
 
 $pki --gen --type ed25519 --outform pem > $key
 $pki --req --type priv --in $key --dn "C=CH, O=strongswan, CN=$host" --san $host --outform pem > $req
@@ -117,17 +119,28 @@ authorities {
 include conf.d/*.conf
 __EOF__
 
+cat > $strongswan_conf <<__EOF__ || die could not issue strongswan_conf=$strongswan_conf
+charon {
+        load_modular = yes
+        plugins {
+                include strongswan.d/charon/*.conf
+        }
+        start-scripts {
+                swanctl = $prefix/sbin/swanctl -q
+        }
+}
+
+include strongswan.d/*.conf
+__EOF__
+
 msg issued key=$key
 msg issued req=$req
 msg issued cert=$cert
 msg issued ipsec_conf=$ipsec_conf
 msg issued swanctl_conf=$swanctl_conf
+msg issued strongswan_conf=$strongswan_conf
 msg -- remember to copy cert_other=$cert_other to this host
 msg -- start tunnel with:
 msg $prefix/sbin/ipsec start
-msg $prefix/sbin/swanctl --load-all
-msg $prefix/sbin/swanctl --stats
-msg $prefix/sbin/ipsec up net-net
-msg $prefix/sbin/ipsec route net-net
 msg $prefix/sbin/ipsec status
 
