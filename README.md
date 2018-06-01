@@ -79,7 +79,7 @@ Example:
 
 Check status:
 
-    sudo /usr/local/strongswan/sbin/ipsec status
+    sudo /usr/local/strongswan/sbin/ipsec statusall
     sudo /usr/local/strongswan/sbin/swanctl --stats
 
 Install as service
